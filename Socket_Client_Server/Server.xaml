@@ -13,10 +13,8 @@
         <Label Content="Port: " Margin="32,68,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="37"/>
         <Label Content="Uptime: " Margin="32,102,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="55"/>
         <Label Content="Connections: " Margin="32,138,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="82"/>
-        <Button Content="Shutdown" Margin="57,222,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75"/>
+        <Button x:Name="btnShutdown" Click="BtnShutdown_Click" Content="Shutdown" Margin="57,222,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75"/>
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="274" Margin="203,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="579"/>
-        <ListBox HorizontalAlignment="Left" Height="242" Margin="216,28,0,0" VerticalAlignment="Top" Width="551"/>
-
-
+        <TextBox x:Name="txtBoxLog" HorizontalAlignment="Left" Height="257" Margin="213,18,0,0" IsReadOnly="True" TextWrapping="Wrap" VerticalAlignment="Top" Width="561"/>
     </Grid>
 </Window>
