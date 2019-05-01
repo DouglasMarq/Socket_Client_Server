@@ -10,8 +10,9 @@
     <Grid>
         <Button Content="Client" x:Name="BtnClient" Click="BtnClient_Click" Margin="10,38,10,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
         <Button Content="Server" x:Name="BtnServer" Click="BtnServer_Click" Margin="10,113,10,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBoxClient" Height="23" Margin="10,0,10,113" TextWrapping="Wrap" Text="Insira o IP e Porta" VerticalAlignment="Bottom"/>
+        <TextBox x:Name="txtBoxClientIP" Margin="10,10,108,0" TextWrapping="Wrap" Text="Insira o IP" Height="23" VerticalAlignment="Top"/>
         <TextBox x:Name="txtBoxServerIP" HorizontalAlignment="Left" Height="23" Margin="10,85,0,0" TextWrapping="Wrap" Text="Insira o IP" VerticalAlignment="Top" Width="122"/>
         <TextBox x:Name="txtBoxServerPort" Height="23" Margin="137,85,10,0" TextWrapping="Wrap" Text="Insira a Porta" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtBoxClientPort" Height="23" Margin="137,10,10,0" TextWrapping="Wrap" Text="Insira a Porta" VerticalAlignment="Top"/>
     </Grid>
 </Window>

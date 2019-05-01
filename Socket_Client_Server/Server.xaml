@@ -9,10 +9,10 @@
         Title="Server" Height="325.21" Width="800">
     <Grid>
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="274" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="177"/>
-        <Label Content="IP: " Margin="32,32,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="26"/>
-        <Label Content="Port: " Margin="32,68,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="37"/>
-        <Label Content="Uptime: " Margin="32,102,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="55"/>
-        <Label Content="Connections: " Margin="32,138,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="82"/>
+        <Label x:Name="lblIp" Content="Ip: " ContentStringFormat="IP: {0}" Margin="32,32,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="26"/>
+        <Label x:Name="lblPort" Content="Port: " Margin="32,68,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="37"/>
+        <Label x:Name="lblUptime" Content="Uptime: " Margin="32,102,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="55"/>
+        <Label x:Name="lblConnections" Content="Connections: " Margin="32,138,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="82"/>
         <Button x:Name="btnShutdown" Click="BtnShutdown_Click" Content="Shutdown" Margin="57,222,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75"/>
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="274" Margin="203,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="579"/>
         <TextBox x:Name="txtBoxLog" HorizontalAlignment="Left" Height="257" Margin="213,18,0,0" IsReadOnly="True" TextWrapping="Wrap" VerticalAlignment="Top" Width="561"/>
