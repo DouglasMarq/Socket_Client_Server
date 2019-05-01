@@ -1,0 +1,14 @@
+﻿<Window x:Class="Socket_Client_Server.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Socket_Client_Server"
+        mc:Ignorable="d"
+        ResizeMode="NoResize"
+        Title="MainWindow" Height="129.099" Width="245.799">
+    <Grid>
+        <Button Content="Client" x:Name="BtnClient" Click="BtnClient_Click" Margin="10,26,10,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Button Content="Server" x:Name="BtnServer" Click="BtnServer_Click" Margin="10,60,10,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+    </Grid>
+</Window>
