@@ -12,15 +12,12 @@ namespace Socket_Client_Server
     {
         private readonly BackgroundWorker worker = new BackgroundWorker();
         private string saveTxt;
-        private string saveTxt2;
         private string saveTxtClient;
-        private string saveTxtClient2;
+        private string saveTxtName;
 
         public MainWindow()
         {
             InitializeComponent();
-            worker.DoWork += worker_DoWork;
-            worker.RunWorkerCompleted += worker_RunWorkerCompleted;
 
             //Listeners dos Text Box do server
             txtBoxServerPort.GotFocus += TxtBoxServerPort_GotFocus;
@@ -37,6 +34,10 @@ namespace Socket_Client_Server
             txtBoxClientIP.GotFocus += TxtBoxClientIP_GotFocus;
             txtBoxClientIP.LostFocus += TxtBoxClientIP_LostFocus;
             txtBoxClientIP.TextChanged += TxtBoxClientIP_TextChanged;
+
+            //listeners do Text Box do Nome
+            txtBoxName.GotFocus += TxtBoxName_GotFocus;
+            txtBoxName.LostFocus += TxtBoxName_LostFocus;
         }
 
         #region listeners
@@ -69,7 +70,7 @@ namespace Socket_Client_Server
         {
             if (txtBoxServerIP.Text == "Insira o IP")
             {
-                saveTxt2 = txtBoxServerIP.Text;
+                saveTxt = txtBoxServerIP.Text;
                 txtBoxServerIP.Text = "";
             }
         }
@@ -78,7 +79,7 @@ namespace Socket_Client_Server
         {
             if (string.IsNullOrWhiteSpace(txtBoxServerIP.Text))
             {
-                txtBoxServerIP.Text = saveTxt2;
+                txtBoxServerIP.Text = saveTxt;
             }
         }
 
@@ -119,7 +120,7 @@ namespace Socket_Client_Server
         {
             if (txtBoxClientIP.Text == "Insira o IP")
             {
-                saveTxtClient2 = txtBoxClientIP.Text;
+                saveTxtClient = txtBoxClientIP.Text;
                 txtBoxClientIP.Text = "";
             }
         }
@@ -128,7 +129,7 @@ namespace Socket_Client_Server
         {
             if (string.IsNullOrWhiteSpace(txtBoxClientIP.Text))
             {
-                txtBoxClientIP.Text = saveTxtClient2;
+                txtBoxClientIP.Text = saveTxtClient;
             }
         }
 
@@ -139,22 +140,38 @@ namespace Socket_Client_Server
                 txtBoxClientIP.Text = txtBoxClientIP.Text.Remove(txtBoxClientIP.Text.Length - 1);
             }
         }
+
+        private void TxtBoxName_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtBoxName.Text))
+            {
+                txtBoxName.Text = saveTxtName;
+            }
+        }
+
+        private void TxtBoxName_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (txtBoxName.Text == "Insira um Nome")
+            {
+                saveTxtName = txtBoxName.Text;
+                txtBoxName.Text = "";
+            }
+        }
         #endregion
 
         private void BtnClient_Click(object sender, RoutedEventArgs e)
         {
-            Client ClientWindow = new Client(txtBoxClientIP.Text, Convert.ToInt32(txtBoxClientPort.Text));
-            ClientWindow.Activate();
-        }
-
-        private void BtnServer_Click(object sender, RoutedEventArgs e)
-        {
             if (!string.IsNullOrWhiteSpace(txtBoxServerIP.Text))
             {
-                Server ServerWindow = new Server(txtBoxServerIP.Text, Convert.ToInt32(txtBoxServerPort.Text));
-                ServerWindow.Activate();
-                //background check
-                //worker.RunWorkerAsync();
+                try
+                {
+                    Client ClientWindow = new Client(txtBoxClientIP.Text, Convert.ToInt32(txtBoxClientPort.Text), txtBoxName.Text);
+                    ClientWindow.Activate();
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show("Insira um IP/Porta válido(a).", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
             else
             {
@@ -162,14 +179,24 @@ namespace Socket_Client_Server
             }
         }
 
-        private void worker_DoWork(object sender, DoWorkEventArgs e)
+        private void BtnServer_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-
+            if (!string.IsNullOrWhiteSpace(txtBoxServerIP.Text))
+            {
+                try
+                {
+                    Server ServerWindow = new Server(txtBoxServerIP.Text, Convert.ToInt32(txtBoxServerPort.Text));
+                    ServerWindow.Activate();
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show("Insira um IP/Porta válido(a).", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Porta e/ou IP vazio", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

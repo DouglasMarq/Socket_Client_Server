@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Windows;
 
 namespace Socket_Client_Server
@@ -11,58 +12,103 @@ namespace Socket_Client_Server
     /// </summary>
     public partial class Client : Window
     {
-        private IPHostEntry host;
-        private IPAddress ipAddress;
-        private IPEndPoint IPEndPoint;
-
-        public Client(string Ip, int Port)
-        {
-            InitializeComponent();
-            this.Show();
-            ip = Ip;
-            port = Port;
-            host = Dns.GetHostEntry(ip);
-            ipAddress = host.AddressList[0];
-            IPEndPoint = new IPEndPoint(ipAddress, port);
-            txtBoxLog.AppendText("Conectado em: " + ip + " na porta: " + port + ".");
-            ConnectSocket();
-        }
-
+        TcpClient clientSocket = new TcpClient();
+        NetworkStream serverStream = default(NetworkStream);
+        string readData = null;
+        private string name;
         private int port;
         private string ip;
         private Socket Clients;
         private byte[] bytes;
 
-        private void ConnectSocket()
+        public Client(string Ip, int Port, string Name)
         {
+            InitializeComponent();
+            this.Show();
+            ip = Ip;
+            port = Port;
+            name = Name;
+            lblIp.Content = "IP: " + ip;
+            lblPort.Content = "Porta: " + port;
+            ConnectServer();
+        }
+
+        private void ConnectServer()
+        {
+            try
+            {
+                clientSocket.Connect(ip, port);
+
+                serverStream = clientSocket.GetStream();
+
+                byte[] outStream = Encoding.UTF8.GetBytes(name + "$");
+                clientSocket.ReceiveBufferSize = 1024;
+                clientSocket.SendBufferSize = 1024;
+                serverStream.Write(outStream, 0, outStream.Length);
+                serverStream.Flush();
+
+                Thread ctThread = new Thread(getMessage);
+                ctThread.Start();
+                Dispatcher.Invoke(() =>
+                {
+                    txtBoxLog.AppendText("Conectado em: " + ip + " na porta: " + port + ".");
+                });
+            }
+            catch (SocketException)
+            {
+                MessageBox.Show("O servidor não respondeu.", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Close();
+            }
+        }
+        private void getMessage()
+        {
+            while (true)
+            {
+                serverStream = clientSocket.GetStream();
+                int buffSize = 0;
+                byte[] inStream = new byte[clientSocket.ReceiveBufferSize];
+                buffSize = clientSocket.ReceiveBufferSize;
+                serverStream.Read(inStream, 0, buffSize);
+                string returndata = Encoding.UTF8.GetString(inStream);
+
+                StringBuilder sb = new StringBuilder(returndata);
+                sb.Replace("\0", "");
+                string ReadDataMod = sb.ToString();
+                if (ReadDataMod.Contains("<SHUTDOWNTOKEN:77514>"))
+                {
+                    Dispatcher.Invoke(() =>
+                    {
+                        this.Close();
+                    });
+                    
+                    break;
+                }
+                else
+                {
+                    readData = "" + sb;
+                    msg(readData);
+                }
+                
+            }
+        }
+
+        private void msg(string readData)
+        {
+            var dt = DateTime.Now;
             Dispatcher.Invoke(() =>
             {
-                    //txtBoxLog.AppendText("Conectado em: " + ip + " na porta: " + port + ".");
-                    txtBoxLog.AppendText("Conectado em: " + ip + " na porta: " + port + ".");
+                txtBoxLog.AppendText("\n" + "[" + dt + "]" + " >> " + readData);
             });
-
         }
 
         private void BtnSend_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                bytes = new byte[1024];
-                Clients = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-                Clients.Connect(IPEndPoint);
-
-                //byte[] msg = Encoding.ASCII.GetBytes("This is a test<EOF>");
-                byte[] msg = Encoding.ASCII.GetBytes(txtMsg.Text + "<EOF>");
-
-                // Send the data through the socket.    
-                int bytesSent = Clients.Send(msg);
-
-                int bytesRec = Clients.Receive(bytes);
-                Console.WriteLine("Echoed test = {0}",
-                    Encoding.ASCII.GetString(bytes, 0, bytesRec));
-
-                Clients.Shutdown(SocketShutdown.Both);
-                //Clients.Close();
+                byte[] outStream = Encoding.UTF8.GetBytes(txtMsg.Text + "$");
+                serverStream.Write(outStream, 0, (int)outStream.Length);
+                serverStream.Flush();
+                txtMsg.Text = "";
             }
             catch (SocketException)
             {
@@ -79,23 +125,33 @@ namespace Socket_Client_Server
                 MessageBox.Show("Selecione um IP válido.", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
                 this.Close();
             }
+            catch (NullReferenceException)
+            {
+                //nothing
+            }
         }
 
         private void BtnExit_Click(object sender, RoutedEventArgs e)
         {
-            if (Clients != null)
-            {
-                Clients.Close();
-            }
+            //txtMsg.Text = "saiu do chat.";
+            //BtnSend_Click(null, null);
             this.Close();
         }
 
         protected override void OnClosed(EventArgs e)
         {
-            if (Clients != null)
+            try
             {
                 Clients.Close();
+                clientSocket.Close();
+                serverStream.Close();
             }
+            catch
+            {
+
+            }
+            txtMsg.Text = "saiu do chat.";
+            BtnSend_Click(null, null);
             base.OnClosed(e);
         }
     }

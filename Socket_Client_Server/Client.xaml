@@ -5,15 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Socket_Client_Server"
         mc:Ignorable="d"
-        Title="Client" Height="325.21" Width="800">
+        ResizeMode="NoResize"
+        Title="Cliente" Height="325.21" Width="800">
     <Grid>
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="274" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="177"/>
-        <Label x:Name="lblIp" Margin="32,32,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="26"/>
-        <Label x:Name="lblPort" Content="Port: " Margin="32,68,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="37"/>
-        <Button x:Name="btnExit" Click="BtnExit_Click" Content="Exit" Margin="57,222,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75"/>
+        <Label x:Name="lblIp" Content="test: " Margin="32,32,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="146"/>
+        <Label x:Name="lblPort" Content="test: " Margin="32,68,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="146"/>
+        <Button x:Name="btnExit" Click="BtnExit_Click" Content="Sair" Margin="57,222,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75"/>
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="274" Margin="203,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="579"/>
         <TextBox x:Name="txtBoxLog" HorizontalAlignment="Left" Height="224" Margin="213,18,0,0" IsReadOnly="True" TextWrapping="Wrap" VerticalAlignment="Top" Width="561"/>
         <TextBox x:Name="txtMsg" HorizontalAlignment="Left" Height="23" Margin="213,247,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="481"/>
-        <Button x:Name="btnSend" Click="BtnSend_Click" Content="Send" HorizontalAlignment="Left" Margin="699,247,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
+        <Button x:Name="btnSend" Click="BtnSend_Click" Content="Enviar" HorizontalAlignment="Left" Margin="699,247,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
     </Grid>
 </Window>
