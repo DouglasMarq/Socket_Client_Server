@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows;
 
 namespace Socket_Client_Server
@@ -10,10 +11,13 @@ namespace Socket_Client_Server
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly BackgroundWorker worker = new BackgroundWorker();
         private string saveTxt;
         private string saveTxtClient;
         private string saveTxtName;
+        private ThreadStart clientThread;
+        private Thread backgroundClient;
+        private ThreadStart serverThread;
+        private Thread backgroundServer;
 
         public MainWindow()
         {
@@ -38,6 +42,12 @@ namespace Socket_Client_Server
             //listeners do Text Box do Nome
             txtBoxName.GotFocus += TxtBoxName_GotFocus;
             txtBoxName.LostFocus += TxtBoxName_LostFocus;
+        }
+
+        public void MWServerTerminated(object sender, EventArgs e)
+        {
+            backgroundClient.Abort();
+            backgroundServer.Abort();
         }
 
         #region listeners
@@ -161,42 +171,62 @@ namespace Socket_Client_Server
 
         private void BtnClient_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(txtBoxServerIP.Text))
+            clientThread = new ThreadStart(BackgroundClient);
+            backgroundClient = new Thread(clientThread);
+            backgroundClient.Start();
+        }
+
+        private void BackgroundClient()
+        {
+            Dispatcher.Invoke(() =>
             {
-                try
+                if (!string.IsNullOrWhiteSpace(txtBoxServerIP.Text))
                 {
-                    Client ClientWindow = new Client(txtBoxClientIP.Text, Convert.ToInt32(txtBoxClientPort.Text), txtBoxName.Text);
-                    ClientWindow.Activate();
+                    try
+                    {
+                        Client ClientWindow = new Client(txtBoxClientIP.Text, Convert.ToInt32(txtBoxClientPort.Text), txtBoxName.Text);
+                        ClientWindow.Activate();
+                    }
+                    catch (FormatException)
+                    {
+                        MessageBox.Show("Insira um IP/Porta válido(a).", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
-                catch (FormatException)
+                else
                 {
-                    MessageBox.Show("Insira um IP/Porta válido(a).", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Porta e/ou IP vazio", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-            }
-            else
-            {
-                MessageBox.Show("Porta e/ou IP vazio", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            });
         }
 
         private void BtnServer_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(txtBoxServerIP.Text))
-            {
-                try
+            serverThread = new ThreadStart(BackgroundServer);
+            backgroundServer = new Thread(serverThread);
+            backgroundServer.Start();
+        }
+
+        private void BackgroundServer()
+        {
+            Dispatcher.Invoke(() => {
+                if (!string.IsNullOrWhiteSpace(txtBoxServerIP.Text))
                 {
-                    Server ServerWindow = new Server(txtBoxServerIP.Text, Convert.ToInt32(txtBoxServerPort.Text));
-                    ServerWindow.Activate();
+                    try
+                    {
+                        Server ServerWindow = new Server(txtBoxServerIP.Text, Convert.ToInt32(txtBoxServerPort.Text));
+                        ServerWindow.Terminated += MWServerTerminated;
+                        ServerWindow.Activate();
+                    }
+                    catch (FormatException)
+                    {
+                        MessageBox.Show("Insira um IP/Porta válido(a).", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
-                catch (FormatException)
+                else
                 {
-                    MessageBox.Show("Insira um IP/Porta válido(a).", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Porta e/ou IP vazio", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-            }
-            else
-            {
-                MessageBox.Show("Porta e/ou IP vazio", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            });
         }
     }
 }

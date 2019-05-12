@@ -24,6 +24,7 @@ namespace Socket_Client_Server
         private Socket listener;
         private TcpListener server;
         private TcpClient clientSocket;
+        public EventHandler Terminated;
 
         private DispatcherTimer _contaTempo;
 
@@ -276,6 +277,7 @@ namespace Socket_Client_Server
         {
             try
             {
+                Terminated(this, new EventArgs());
                 broadcast("<SHUTDOWNTOKEN:77514>", null, false);
                 server.Stop();
                 listener.Close();

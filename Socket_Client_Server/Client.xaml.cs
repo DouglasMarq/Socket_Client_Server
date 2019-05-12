@@ -80,7 +80,7 @@ namespace Socket_Client_Server
                     {
                         this.Close();
                     });
-                    
+
                     break;
                 }
                 else
