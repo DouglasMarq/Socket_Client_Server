@@ -25,6 +25,7 @@ namespace Socket_Client_Server
         private TcpListener server;
         private TcpClient clientSocket;
         public EventHandler Terminated;
+        private int i = 0;
 
         private DispatcherTimer _contaTempo;
 
@@ -67,7 +68,7 @@ namespace Socket_Client_Server
         {
             try
             {
-                txtBoxLog.AppendText("Abrindo Conexão em " + ip + " na porta " + port + ".");
+                txtBoxLog.AppendText($"Abrindo Conexão em {ip} na porta {port}.");
                 try
                 {
                     server = new TcpListener(IPAddress.Parse(ip), port);
@@ -111,51 +112,9 @@ namespace Socket_Client_Server
             }
         }
 
-        private async void SetUpSocket()
-        {
-            try
-            {
-                txtBoxLog.AppendText("Iniciando Conexão em " + ip + " na porta " + port + ".");
-                listener = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-                listener.Bind(localEndPoint);
-                listener.Listen(5);
-                txtBoxLog.AppendText("\nConexão Aberta.");
-
-                var ts = new ThreadStart(BackgroundMethod);
-                var backgroundThread = new Thread(ts);
-                backgroundThread.Start();
-            }
-            catch (ArgumentNullException)
-            {
-
-                MessageBox.Show("Porta e/ou IP vazio.", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
-                this.Close();
-            }
-            catch (SocketException)
-            {
-                txtBoxLog.AppendText("\nErro.");
-                MessageBox.Show("Porta em uso ou IP Inválido.", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
-                this.Close();
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                txtBoxLog.AppendText("\nErro.");
-                MessageBox.Show("Selecione uma porta válida.", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
-                this.Close();
-            }
-            catch (FormatException)
-            {
-                txtBoxLog.AppendText("\nErro.");
-                MessageBox.Show("Selecione um IP válido.", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
-                this.Close();
-            }
-        }
-
-        private int i = 0;
-
         private void BackgroundMethod()
         {
-            while ((true))
+            while (true)
             {
                 clients += 1;
 
@@ -261,11 +220,6 @@ namespace Socket_Client_Server
                     }
                 }
             }
-        }
-
-        private static void log()
-        {
-            //Console.WriteLine("From client - " + clNo + " : " + dataFromClient);
         }
 
         private void BtnShutdown_Click(object sender, RoutedEventArgs e)
