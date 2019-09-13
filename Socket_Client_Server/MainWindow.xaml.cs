@@ -210,22 +210,31 @@ namespace Socket_Client_Server
         private void BackgroundServer()
         {
             Dispatcher.Invoke(() => {
-                if (!string.IsNullOrWhiteSpace(txtBoxServerIP.Text))
+            if (!string.IsNullOrWhiteSpace(txtBoxServerPort.Text))
                 {
                     try
                     {
-                        Server ServerWindow = new Server(txtBoxServerIP.Text, Convert.ToInt32(txtBoxServerPort.Text));
-                        ServerWindow.Terminated += MWServerTerminated;
-                        ServerWindow.Activate();
+                        if (string.IsNullOrWhiteSpace(txtBoxServerIP.Text) || txtBoxServerIP.Text == "Insira o IP")
+                        {
+                            Server ServerWindow = new Server("0.0.0.0", Convert.ToInt32(txtBoxServerPort.Text));
+                            ServerWindow.Terminated += MWServerTerminated;
+                            ServerWindow.Activate();
+                        }
+                        else
+                        {
+                            Server ServerWindow = new Server(txtBoxServerIP.Text, Convert.ToInt32(txtBoxServerPort.Text));
+                            ServerWindow.Terminated += MWServerTerminated;
+                            ServerWindow.Activate();
+                        }
                     }
                     catch (FormatException)
                     {
-                        MessageBox.Show("Insira um IP/Porta válido(a).", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Insira um(a) IP/Porta válido(a).", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Porta e/ou IP vazio", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Porta vazia", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             });
         }
