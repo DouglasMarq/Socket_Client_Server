@@ -11,21 +11,21 @@
                       ShowMaxRestoreButton="False"
                       ShowCloseButton="True"
                       WindowStartupLocation="CenterScreen"
-        Title="Central de Controle" Height="391.279" Width="537.691">
+        Title="Central de Controle" Height="391.279" Width="485.025">
     <Grid>
-        <Button Content="Servidor" Background="Transparent" Focusable="False" BorderThickness="1" Width="75" Margin="16,10,441,0" Height="30" VerticalAlignment="Top"/>
-        <CheckBox x:Name="LoginCheckBox" Checked="LoginCheckBox_Checked" Unchecked="LoginCheckBox_Unchecked" Content="Admin?" Margin="439,97,10,243"/>
-        <TextBox TextWrapping="Wrap" x:Name="UserServer" Text="Usuário" Margin="205,188,173,0" Height="26" VerticalAlignment="Top"/>
-        <TextBox TextWrapping="Wrap" x:Name="PassServer" Text="Senha" Margin="364,188,10,0" Height="26" VerticalAlignment="Top"/>
-        <TextBox TextWrapping="Wrap" x:Name="UserLogin" Visibility="Hidden" Text="Usuário" Margin="205,97,214,0" Height="26" VerticalAlignment="Top"/>
-        <TextBox TextWrapping="Wrap" x:Name="PassLogin" Visibility="Hidden" Text="Senha" Margin="323,97,98,0" Height="26" VerticalAlignment="Top"/>
-        <Button Content="Entrar no Servidor" Background="Transparent" Focusable="False" x:Name="BtnClient" Click="BtnClient_Click" Margin="205,65,10,0" VerticalAlignment="Top"/>
-        <Button Content="Iniciar Servidor" Background="Transparent" Focusable="False" x:Name="BtnServer" Click="BtnServer_Click" Margin="205,219,10,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBoxClientIP" Margin="205,37,108,0" TextWrapping="Wrap" Text="Insira o IP" Height="23" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBoxServerIP" HorizontalAlignment="Left" Height="23" Margin="205,157,0,0" TextWrapping="Wrap" Text="Insira o IP" VerticalAlignment="Top" Width="219"/>
-        <TextBox x:Name="txtBoxServerPort" Height="23" Margin="429,157,10,0" TextWrapping="Wrap" Text="Insira a Porta" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBoxClientPort" Height="23" Margin="429,37,10,0" TextWrapping="Wrap" Text="Insira a Porta" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBoxName" Height="23" Margin="205,9,10,0" TextWrapping="Wrap" Text="Insira um Nome" VerticalAlignment="Top"/>
+        <Button Content="Servidor" Background="Transparent" Focusable="False" BorderThickness="1" Width="75" Margin="16,10,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <CheckBox x:Name="LoginCheckBox" Checked="LoginCheckBox_Checked" Unchecked="LoginCheckBox_Unchecked" Content="Admin?" Margin="374,103,0,237" HorizontalAlignment="Left" Width="83"/>
+        <TextBox TextWrapping="Wrap" x:Name="UserServer" Text="Usuário" Margin="140,188,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="154"/>
+        <TextBox TextWrapping="Wrap" x:Name="PassServer" Text="Senha" Margin="299,188,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="158"/>
+        <TextBox TextWrapping="Wrap" x:Name="UserLogin" Visibility="Hidden" Text="Usuário" Margin="140,102,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="113"/>
+        <TextBox TextWrapping="Wrap" x:Name="PassLogin" Visibility="Hidden" Text="Senha" Margin="258,102,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="111"/>
+        <Button Content="Entrar no Servidor" Background="Transparent" Focusable="False" x:Name="BtnClient" Click="BtnClient_Click" Margin="138,67,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="317"/>
+        <Button Content="Iniciar Servidor" Background="Transparent" Focusable="False" x:Name="BtnServer" Click="BtnServer_Click" Margin="140,219,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="317"/>
+        <TextBox x:Name="txtBoxClientIP" Margin="138,37,0,0" TextWrapping="Wrap" Text="Insira o IP" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="219"/>
+        <TextBox x:Name="txtBoxServerIP" HorizontalAlignment="Left" Height="23" Margin="140,157,0,0" TextWrapping="Wrap" Text="Insira o IP" VerticalAlignment="Top" Width="219"/>
+        <TextBox x:Name="txtBoxServerPort" Height="23" Margin="364,157,0,0" TextWrapping="Wrap" Text="Insira a Porta" VerticalAlignment="Top" HorizontalAlignment="Left" Width="93"/>
+        <TextBox x:Name="txtBoxClientPort" Height="23" Margin="362,37,0,0" TextWrapping="Wrap" Text="Insira a Porta" VerticalAlignment="Top" HorizontalAlignment="Left" Width="93"/>
+        <TextBox x:Name="txtBoxName" Height="23" Margin="138,6,0,0" TextWrapping="Wrap" Text="Insira um Nome" VerticalAlignment="Top" HorizontalAlignment="Left" Width="317"/>
         <StackPanel Orientation="Horizontal">
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Width="1" Margin="115,0,0,0"/>
         </StackPanel>
