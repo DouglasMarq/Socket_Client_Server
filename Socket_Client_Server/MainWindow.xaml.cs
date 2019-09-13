@@ -229,5 +229,17 @@ namespace Socket_Client_Server
                 }
             });
         }
+
+        private void LoginCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            UserLogin.Visibility = Visibility.Visible;
+            PassLogin.Visibility = Visibility.Visible;
+        }
+
+        private void LoginCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            UserLogin.Visibility = Visibility.Hidden;
+            PassLogin.Visibility = Visibility.Hidden;
+        }
     }
 }
