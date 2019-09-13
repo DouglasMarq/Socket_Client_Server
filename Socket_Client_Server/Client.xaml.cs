@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -10,7 +11,7 @@ namespace Socket_Client_Server
     /// <summary>
     /// Interaction logic for Client.xaml
     /// </summary>
-    public partial class Client : Window
+    public partial class Client : MetroWindow
     {
         TcpClient clientSocket = new TcpClient();
         NetworkStream serverStream = default(NetworkStream);

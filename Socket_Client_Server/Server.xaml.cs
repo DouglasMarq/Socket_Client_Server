@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using System;
 using System.Collections;
 using System.Net;
 using System.Net.Sockets;
@@ -12,7 +13,7 @@ namespace Socket_Client_Server
     /// <summary>
     /// Interaction logic for Server.xaml
     /// </summary>
-    public partial class Server : Window
+    public partial class Server : MetroWindow
     {
         private IPHostEntry host;
         private IPAddress ipAddress;
