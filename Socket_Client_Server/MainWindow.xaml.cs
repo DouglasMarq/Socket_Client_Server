@@ -202,41 +202,17 @@ namespace Socket_Client_Server
 
         private void BtnServer_Click(object sender, RoutedEventArgs e)
         {
-            serverThread = new ThreadStart(BackgroundServer);
-            backgroundServer = new Thread(serverThread);
-            backgroundServer.Start();
-        }
-
-        private void BackgroundServer()
-        {
-            Dispatcher.Invoke(() => {
-            if (!string.IsNullOrWhiteSpace(txtBoxServerPort.Text))
-                {
-                    try
-                    {
-                        if (string.IsNullOrWhiteSpace(txtBoxServerIP.Text) || txtBoxServerIP.Text == "Insira o IP")
-                        {
-                            Server ServerWindow = new Server("0.0.0.0", Convert.ToInt32(txtBoxServerPort.Text));
-                            ServerWindow.Terminated += MWServerTerminated;
-                            ServerWindow.Activate();
-                        }
-                        else
-                        {
-                            Server ServerWindow = new Server(txtBoxServerIP.Text, Convert.ToInt32(txtBoxServerPort.Text));
-                            ServerWindow.Terminated += MWServerTerminated;
-                            ServerWindow.Activate();
-                        }
-                    }
-                    catch (FormatException)
-                    {
-                        MessageBox.Show("Insira um(a) IP/Porta válido(a).", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Porta vazia", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            });
+            if(txtBoxServerIP.Text != "Insira o IP" && txtBoxServerPort.Text != "Insira a Porta" || string.IsNullOrEmpty(txtBoxServerPort.Text) || string.IsNullOrEmpty(txtBoxServerIP.Text))
+            {
+                Core.StartAsync(txtBoxServerIP.Text, int.Parse(txtBoxServerPort.Text));
+            }
+            else
+            {
+                MessageBox.Show("Verifique o IP e a Porta.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+            //serverThread = new ThreadStart(BackgroundServer);
+            //backgroundServer = new Thread(serverThread);
+            //backgroundServer.Start();
         }
 
         private void LoginCheckBox_Checked(object sender, RoutedEventArgs e)

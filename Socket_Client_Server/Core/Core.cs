@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Socket_Client_Server.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,13 +9,12 @@ namespace Socket_Client_Server
 {
     public class Core
     {
-        public static Task StartAsync()
-            => new Core().CreateAsync();
+        public static Task StartAsync(string ip, int port)
+            => new Core().StartServerAsync(ip, port);
 
-        private async Task CreateAsync()
+        private async Task StartServerAsync(string ip, int port)
         {
-            MainWindow MW = new MainWindow();
-            MW.Visibility = System.Windows.Visibility.Visible;
+            StartServerService.Init(ip, port);
         }
     }
 }

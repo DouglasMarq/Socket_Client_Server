@@ -18,8 +18,8 @@
         <Label x:Name="lblPort" Content="test: " Margin="32,68,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="146"/>
         <Button x:Name="btnExit" Click="BtnExit_Click" Content="Sair" Margin="57,222,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75"/>
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="274" Margin="203,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="579"/>
-        <TextBox x:Name="txtBoxLog" HorizontalAlignment="Left" Height="224" Margin="213,18,0,0" IsReadOnly="True" TextWrapping="Wrap" VerticalAlignment="Top" Width="561"/>
-        <TextBox x:Name="txtMsg" HorizontalAlignment="Left" Height="23" Margin="213,247,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="481"/>
-        <Button x:Name="btnSend" Click="BtnSend_Click" Content="Enviar" HorizontalAlignment="Left" Margin="699,247,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
+        <TextBox x:Name="txtBoxLog" HorizontalAlignment="Left" Height="210" Margin="213,18,0,0" IsReadOnly="True" TextWrapping="Wrap" VerticalAlignment="Top" Width="561"/>
+        <TextBox x:Name="txtMsg" HorizontalAlignment="Left" Height="40" Margin="213,233,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="481"/>
+        <Button x:Name="btnSend" Click="BtnSend_Click" Content="Enviar" HorizontalAlignment="Left" Margin="699,233,0,0" VerticalAlignment="Top" Width="75" Height="40"/>
     </Grid>
 </Controls:MetroWindow>

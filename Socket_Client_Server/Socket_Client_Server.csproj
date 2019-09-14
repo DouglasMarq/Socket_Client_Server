@@ -79,6 +79,7 @@
     <Compile Include="Server.xaml.cs">
       <DependentUpon>Server.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\StartServerService.cs" />
     <Page Include="Client.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
