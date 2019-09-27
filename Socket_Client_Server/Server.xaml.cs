@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using Socket_Client_Server.Services;
 using System;
 using System.Collections;
 using System.Net;
@@ -25,6 +26,7 @@ namespace Socket_Client_Server
 
         public Server()
         {
+            //lblIp.Content = StartServerService.Ip.ToString();
             var ts = new ThreadStart(contaTempo);
             var contaTempoThread = new Thread(ts);
             contaTempoThread.Start();

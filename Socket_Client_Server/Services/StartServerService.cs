@@ -24,9 +24,12 @@ namespace Socket_Client_Server.Services
         public static event EventHandler Terminated;
         private static int i = 0;
         private static DispatcherTimer _contaTempo;
+        private static Server ServerWindow;
 
         public static void Init(string ip, int port)
         {
+            ServerWindow = new Server();
+            ServerWindow.Show();
             _port = port;
             _ip = ip;
             host = Dns.GetHostEntry(ip);
@@ -43,8 +46,7 @@ namespace Socket_Client_Server.Services
             }
             clientSocket = default(TcpClient);
             server.Start();
-            Server ServerWindow = new Server();
-            ServerWindow.Activate();
+            //ServerWindow.Activate();
             var ts = new ThreadStart(BackgroundMethod);
             var backgroundThread = new Thread(ts);
             backgroundThread.Start();
